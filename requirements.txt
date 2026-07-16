@@ -1,0 +1,10 @@
+beautifulsoup4
+chromadb
+fastapi
+numpy
+python-dotenv
+requests
+sentence-transformers
+streamlit
+pytest
+uvicorn

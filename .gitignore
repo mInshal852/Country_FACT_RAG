@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.log
+.env
+.venv/
+venv/
+.envrc
+.pytest_cache/
+.mypy_cache/
+coverage.xml
+htmlcov/
+datasets/raw/*.tmp
+datasets/processed/*.tmp
+vectordb/chroma_db/
