@@ -3,8 +3,11 @@ chromadb
 fastapi
 numpy
 python-dotenv
+playwright
 requests
 sentence-transformers
 streamlit
 pytest
 uvicorn
+requests
+os
