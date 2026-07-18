@@ -43,9 +43,25 @@ Navigation menus, buttons, breadcrumbs
 Advertisement text
 Author, editor, contributor names
 Fact-check labels, publication dates, last updated dates, copyright notices
-Image, audio, and video captions or labels
+Audio and video captions or labels
 Duplicate headings
 Empty lines left behind after removing content
+News headlines and recent updates — Remove any lines that contain a date with a time and a news source in brackets like (AP), (Reuters), (BBC). These appear as a block of recent news items and are not part of the article. Pattern to look for: [Headline] • [Date], [Time] ET ([Source])
+Footnote reference numbers — Remove any standalone number that appears after a word or value as an inline reference marker. For example none 1 should become none, and Islam 2 should become Islam. Do not remove numbers that are part of actual facts, statistics, or dates
+IMAGE CAPTIONS — this is critical. Remove every image caption without exception. Image captions appear in these forms:
+
+A place name followed by a description: Mecca, Saudi Arabia Night view of Mecca, Saudi Arabia.
+A subject followed by a description: Desert landscape near Riyadh, Saudi Arabia.
+A repeated location name with a photo description: Karachi, Pakistan Aerial view of Karachi harbour.
+Any short standalone line that describes a photo, illustration, or map
+Any line that looks like [Place][Country] [Description of what is shown in the image]
+Any line ending with a period that describes a visual scene but is not part of a paragraph
+The most common Britannica caption pattern is: [Subject Name] [Description of what is shown]. where the subject name is immediately repeated or described in the rest of the line
+Lines containing phrases like "just south of", "near", "portion of", "view of", "aerial view", "overlooking", "showing", "photograph of" are almost always captions — remove them if they stand alone
+A standalone line that starts with a place name and describes its location or appearance is always a caption — remove it
+If you are not sure whether a line is a caption or a sentence — and it describes a visual scene or a photo — remove it
+
+
 
 KEEP everything else exactly as-is:
 
@@ -65,6 +81,17 @@ Keep paragraph breaks as they are
 Do not merge or split paragraphs
 Do not add any Markdown except headings
 
+NEWLINE rules:
+
+One blank line between a heading and the first paragraph below it
+One blank line between paragraphs
+One blank line between each Quick Facts entry
+One blank line before and after every ## or ### heading
+No blank line at the very start or very end of the output
+Never add two or more blank lines in a row anywhere
+Do not add blank lines inside a paragraph
+Do not add blank lines between dash list items inside Quick Facts
+
 QUICK FACTS rules:
 
 Keep every single Quick Facts item, nothing skipped
@@ -73,15 +100,19 @@ Format each one as: Key: Value
 Add a blank line between each Quick Facts entry for readability
 If a fact contains a duplicate label (e.g. "Head Of Government: Prime Minister: Shehbaz Sharif"), remove only the redundant colon and label while keeping the meaning (e.g. "Head of Government: Prime Minister Shehbaz Sharif")
 If a Quick Facts item has multiple values (like density, or urban/rural split), write each value on its own line with a dash in front, like this:
-Abbreviations like GNI, PKR, USD must stay in full uppercase.
-"Gni" is WRONG. Always write it as "GNI". 
-"Pkr" is WRONG. Always write it as "PKR".
-"Usd" is WRONG. Always write it as "USD".
-Never apply Title Case to abbreviations. 
-If a word is an abbreviation, keep it fully uppercase.
+
 Urban-Rural Population (2020):
 - Urban: 36.8%
 - Rural: 63.2%
+
+Abbreviations like GNI, PKR, USD must stay in full uppercase
+"Gni" is WRONG. Always write it as "GNI"
+"Pkr" is WRONG. Always write it as "PKR"
+"Usd" is WRONG. Always write it as "USD"
+Never apply Title Case to abbreviations
+If a word is an abbreviation, keep it fully uppercase
+Remove footnote reference numbers from Quick Facts values (e.g. none 1 → none)
+
 STRICT rules — never do these:
 
 Do not summarize, rewrite, paraphrase, or simplify anything
@@ -95,6 +126,7 @@ Return only the cleaned article
 No code fences, no explanations, no notes about what was removed
 
 Article:
+""
 {article["text"]}
 """
 
