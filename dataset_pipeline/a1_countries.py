@@ -6,9 +6,11 @@ COUNTRIES = [
     "Saudi-Arabia",
 ]
 
-Sections = [
+SectiontsInGeneral = [
     "Cultural-life",
     "Economy",
     "History",
     "Introduction",
 ]
+
+Sections = SectiontsInGeneral

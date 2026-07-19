@@ -1,14 +1,16 @@
 # Country: Pakistan
-## Section: Pakistan
+## Section: Introduction
 
 Title: Pakistan | History, Population, Religion, Prime Minister, Map, & Flag | Britannica
 Source: https://www.britannica.com/place/Pakistan
 
 ---
 
-# Pakistan
+#
+Pakistan
 
-## Quick Facts
+##
+Quick Facts
 Head of Government: Prime Minister Shehbaz Sharif
 Capital: Islamabad
 Population: (2026 est.) 262,034,000
@@ -41,6 +43,7 @@ GNI Per Capita (U.S.$): (2024) 1,430
 Literacy: Percentage of Population Age 10 and Over Literate: Male: (2023) 68%
 - Female: (2023) 52.8%
 
+##
 Pakistan, populous multiethnic country of South Asia. Having a predominately Indo-Iranian speaking population, Pakistan has historically and culturally been associated with its neighbors Iran, Afghanistan, and India. Since Pakistan and India achieved independence from British rule on August 14–15, 1947, celebrated as Independence Day, Pakistan has been distinguished from its larger southeastern neighbor by its overwhelmingly Muslim population (as opposed to the predominance of Hindus in India). Pakistan has struggled throughout its existence to attain political stability and sustained social development. Its capital is Islamabad, in the foothills of the Himalayas in the northern part of the country, and its largest city is Karachi, in the south on the coast of the Arabian Sea.
 
 Pakistan was brought into being at the time of the partition of British India, in response to the demands of Islamic nationalists: as articulated by the All India Muslim League under the leadership of Mohammed Ali Jinnah, India’s Muslims would receive just representation only in their own country. From independence until 1971, Pakistan (both de facto and in law) consisted of two regions—West Pakistan, in the Indus River basin in the northwestern portion of the Indian subcontinent, and East Pakistan, located more than 1,000 miles (1,600 km) to the east in the vast delta of the Ganges-Brahmaputra river system. In response to grave internal political problems that erupted in civil war in 1971, East Pakistan was proclaimed the independent country of Bangladesh.
@@ -51,10 +54,12 @@ Yet, politically and culturally, Pakistan has struggled to define itself. Establ
 
 At the time of partition in 1947, as many as 10 million Muslim refugees fled their homes in India and sought refuge in Pakistan—about 8 million in West Pakistan. An approximately equal number of Hindus and Sikhs were uprooted from their land and familiar surroundings in what became Pakistan, and they fled to India. Unlike the earlier migrations, which took centuries to unfold, these chaotic population transfers took hardly one year. The resulting impact on the life of the subcontinent has reverberated ever since in the rivalries between the two countries, and each has continued to seek a lasting modus vivendi with the other. Pakistan and India have fought four wars, three of which (1948–49, 1965, and 1999) were over Kashmir. Since 1998 both countries have also possessed nuclear weapons, further heightening tensions between them.
 
+##
 Pakistan is bounded by Iran to the west, Afghanistan to the northwest and north, China to the northeast, and India to the east and southeast. The coast of the Arabian Sea forms its southern border.
 
 Since 1947 the Kashmir region, along the western Himalayas, has been disputed, with Pakistan, India, and China each controlling sections of the territory. Part of the Pakistani-administered territory comprises the so-called Azad Kashmir (“Free Kashmir”) region—which Pakistan nonetheless considers an independent state, with its capital at Muzaffarabad. The remainder of Pakistani-administered Kashmir consists of Gilgit and Baltistan, known collectively after 2009 as Gilgit-Baltistan (formerly the Northern Areas).
 
-## Physical features of Pakistan
+##
+Physical features of Pakistan
 
 Pakistan is situated at the western end of the great Indo-Gangetic Plain. Of the total area of the country, about three-fifths consists of rough mountainous terrain and plateaus, and the remaining two-fifths constitutes a wide expanse of level plain. The land can be divided into five major regions: the Himalayan and Karakoram ranges and their subranges; the Hindu Kush and western mountains; the Balochistan plateau; the submontane plateau (Potwar Plateau, Salt Range, trans-Indus plain, and Sialkot area); and the Indus River plain. Within each major division there are further subdivisions, including a number of desert areas.

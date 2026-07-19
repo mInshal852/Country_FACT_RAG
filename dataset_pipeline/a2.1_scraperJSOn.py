@@ -1,4 +1,5 @@
-from base64 import b64decode
+# for json
+
 from dotenv import load_dotenv
 import os
 import json
@@ -29,6 +30,7 @@ for country in COUNTRIES:
     for section in Sections:
         # Build the target URL for the country-section
         url = f"https://www.britannica.com/place/{country}/{section}"
+        print(url)
 
         # Request the rendered content from Zyte
         api_response = requests.post(

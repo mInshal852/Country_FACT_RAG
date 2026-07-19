@@ -3,13 +3,14 @@ import json
 from a1_countries import COUNTRIES, Sections
 
 
-def generate_txt(article: dict, country: str, output_dir: str) -> str:
+def generate_txt(article: dict, country: str, section: str, output_dir: str) -> str:
     """
     Convert a cleaned article dictionary into a formatted TXT file.
 
     Args:
         article (dict): Cleaned article dictionary.
         country (str): Country name (e.g., "Germany").
+        section (str): Section name (e.g., "History").
         output_dir (str): Directory where the TXT file will be saved.
 
     Returns:
@@ -18,8 +19,8 @@ def generate_txt(article: dict, country: str, output_dir: str) -> str:
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # Create filename from headline
-    filename = article["headline"].replace("/", "-").strip() + ".txt"
+    # Create stable filename from section name
+    filename = section.replace("/", "-").strip() + ".txt"
     output_path = os.path.join(output_dir, filename)
 
     content = f"""# Country: {country}
@@ -41,10 +42,9 @@ Source: {article["url"]}
 
 if __name__ == "__main__":
 
-    base_dir = os.path.dirname(__file__)
+    base_dir = os.path.abspath(os.path.dirname(__file__))
     for country in COUNTRIES:
         for section in Sections:
-
             json_path = os.path.join(
                 base_dir,
                 "..",
@@ -54,21 +54,26 @@ if __name__ == "__main__":
                 f"{section}.json",
             )
 
-        with open(json_path, "r", encoding="utf-8") as f:
-            article = json.load(f)
+            if not os.path.exists(json_path):
+                print(f"Skipping {country}/{section}: missing {json_path}")
+                continue
 
-        output_directory = os.path.join(
-            base_dir,
-            "..",
-            "datasets",
-            "txt",
-            f"{country}",
-        )
+            with open(json_path, "r", encoding="utf-8") as f:
+                article = json.load(f)
 
-        txt_path = generate_txt(
-            article=article,
-            country=f"{country}",
-            output_dir=output_directory,
-        )
+            output_directory = os.path.join(
+                base_dir,
+                "..",
+                "datasets",
+                "txt",
+                f"{country}",
+            )
 
-        print(f"TXT generated successfully:\n{txt_path}")
+            txt_path = generate_txt(
+                article=article,
+                country=country,
+                section=section,
+                output_dir=output_directory,
+            )
+
+            print(f"TXT generated successfully:\n{txt_path}")

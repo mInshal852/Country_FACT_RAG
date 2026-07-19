@@ -11,3 +11,4 @@ uvicorn
 requests
 os
 openai
+langchain_text_splitters
