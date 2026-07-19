@@ -13,11 +13,8 @@ BASE_URL = "https://www.britannica.com"
 
 
 TARGET_SECTIONS = {
-    "Introduction and Quick Facts": [
-        "Introduction & Quick Facts",
-        "Introduction and Quick Facts",
-    ],
-    "Cultural Life": ["Cultural life", "Cultural Life"],
+    "Introduction & Quick Facts": ["Introduction & Quick Facts"],
+    "Cultural life": ["Cultural life"],
     "Economy": ["Economy"],
     "History": ["History"],
 }
@@ -44,15 +41,7 @@ def find_section_link(soup, country, section_titles):
                     return href
                 return urljoin(BASE_URL, href)
 
-    for anchor in soup.find_all("a", href=True):
-        anchor_text = normalize_text(anchor.get_text(" ", strip=True))
-        if anchor_text in normalized_titles:
-            href = anchor["href"]
-            if href.startswith("http"):
-                return href
-            return urljoin(BASE_URL, href)
-
-    if "introduction and quick facts" in normalized_titles:
+    if "introduction & quick facts" in normalized_titles:
         return f"{BASE_URL}/place/{country}"
 
     return ""

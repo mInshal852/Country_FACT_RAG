@@ -1,43 +1,56 @@
-# for json
-
-from dotenv import load_dotenv
-import os
 import json
+import os
+
 import requests
+from dotenv import load_dotenv
+
 from a1_countries import COUNTRIES, Sections
 
 # Load .env from the project root
 load_dotenv()
 
 
-# 1. Read the Zyte API key from the environment.
 zyte_api_key = os.getenv("ZYTE_API_KEY")
 
 if not zyte_api_key:
     raise ValueError("ZYTE_API_KEY is not set in the environment.")
 
 
-# Resolve project root once
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+def load_data_links(country):
+    data_links_path = os.path.join(
+        project_root, "datasets", "datalinks", country, "datalinks.json"
+    )
+
+    with open(data_links_path, "r", encoding="utf-8") as fh:
+        payload = json.load(fh)
+
+    return payload["data_links"]
+
+
 for country in COUNTRIES:
-    # Ensure per-country directories exist for raw JSON and processed text
     raw_dir = os.path.join(project_root, "datasets", "raw", country)
     processed_dir = os.path.join(project_root, "datasets", "processed", country)
     os.makedirs(raw_dir, exist_ok=True)
     os.makedirs(processed_dir, exist_ok=True)
 
-    for section in Sections:
-        # Build the target URL for the country-section
-        url = f"https://www.britannica.com/place/{country}/{section}"
-        print(url)
+    data_links = load_data_links(country)
 
-        # Request the rendered content from Zyte
+    for section in Sections:
+        section_url = data_links.get(section, "")
+        if not section_url:
+            print(f"Missing datalink for {country}/{section}")
+            continue
+
+        print(section_url)
+
         api_response = requests.post(
             "https://api.zyte.com/v1/extract",
             auth=(zyte_api_key, ""),
             json={
-                "url": url,
+                "url": section_url,
                 "pageContent": True,
                 "pageContentOptions": {"extractFrom": "httpResponseBody"},
                 "followRedirect": True,
@@ -45,7 +58,6 @@ for country in COUNTRIES:
             timeout=120,
         )
 
-        # If Zyte returns an error, print details and continue to next section
         if not api_response.ok:
             print(
                 f"Zyte request failed for {country}/{section} with status code: {api_response.status_code}"
@@ -55,7 +67,6 @@ for country in COUNTRIES:
 
         data = api_response.json()
 
-        # Save raw Zyte JSON response only
         raw_path = os.path.join(raw_dir, f"{section}.json")
         with open(raw_path, "w", encoding="utf-8") as fh:
             json.dump(data, fh, ensure_ascii=False, indent=2)

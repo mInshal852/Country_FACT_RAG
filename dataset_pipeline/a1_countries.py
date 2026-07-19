@@ -7,10 +7,10 @@ COUNTRIES = [
 ]
 
 SectiontsInGeneral = [
-    "Cultural-life",
+    "Cultural life",
     "Economy",
     "History",
-    "Introduction",
+    "Introduction & Quick Facts",
 ]
 
 Sections = SectiontsInGeneral
