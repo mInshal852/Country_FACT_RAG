@@ -29,3 +29,20 @@ vector_store = VectorStore(os.path.join(project_root, "vectordb", "chroma_db"))
 vector_store.add_documents(embedded_chunks)
 
 print(f"Stored {vector_store.count()} chunks in ChromaDB")
+
+
+from .retriever import Retriever
+
+retriever = Retriever(os.path.join(project_root, "vectordb", "chroma_db"))
+
+results = retriever.retrieve(
+    "What is the capital of Germany?",
+    top_k=5,
+)
+
+for chunk in results:
+    print("=" * 80)
+    print(chunk["id"])
+    print(chunk["distance"])
+    print(chunk["metadata"])
+    print(chunk["text"][:300])

@@ -23,3 +23,10 @@ A lightweight retrieval-augmented generation scaffold for country facts.
 ## Notes
 
 This repository is scaffolded so each folder and file exists and can be extended with real scraping, parsing, retrieval, and generation logic.
+
+
+
+Vector Database: ChromaDB
+Index: HNSW  (default)
+Distance Metric: L2 (Euclidean)(i changed it to "cosine")
+Embedding Model: all-MiniLM-L6-v2
