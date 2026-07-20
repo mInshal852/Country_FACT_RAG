@@ -1,6 +1,6 @@
 import os
 import json
-from a1_countries import COUNTRIES, Sections
+from .a1_countries import COUNTRIES, Sections
 
 
 def generate_txt(article: dict, country: str, section: str, output_dir: str) -> str:

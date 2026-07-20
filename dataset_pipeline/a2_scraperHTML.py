@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 import requests
 
-from a1_countries import COUNTRIES
+from .a1_countries import COUNTRIES
 
 load_dotenv()
 

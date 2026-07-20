@@ -3,7 +3,7 @@ import os
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
-from a1_countries import COUNTRIES, Sections
+from .a1_countries import COUNTRIES, Sections
 
 load_dotenv()
 

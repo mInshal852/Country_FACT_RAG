@@ -1,6 +1,6 @@
 import json
 import os
-from a1_countries import COUNTRIES, Sections
+from .a1_countries import COUNTRIES, Sections
 
 
 def parse_json(json_path):

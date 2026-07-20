@@ -1,6 +1,8 @@
 import os
 import json
-from a1_countries import COUNTRIES
+from .a1_countries import COUNTRIES
+
+print("Current Working Directory:", os.getcwd())
 from configg import CHUNK_OVERLAPP, CHUNK_SIZEE
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -8,12 +10,14 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 # Configuration
 # ==========================
 
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 INPUT_DIR = os.path.join(BASE_DIR, "datasets", "txt")
 OUTPUT_DIR = os.path.join(BASE_DIR, "datasets", "chunks")
 
 CHUNK_SIZE = CHUNK_SIZEE
 CHUNK_OVERLAP = CHUNK_OVERLAPP
+
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
