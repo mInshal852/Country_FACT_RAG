@@ -52,9 +52,9 @@
 
 import os
 
-from .retriever import Retriever
-from .prompt_builder import PromptBuilder
-from .llm_generator import LLMGenerator
+from .a4_retriever import Retriever
+from .a5_prompt_builder import PromptBuilder
+from .a6_llm_generator import LLMGenerator
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

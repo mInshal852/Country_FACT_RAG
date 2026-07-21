@@ -1,5 +1,5 @@
-from .embedder import Embedder
-from .vector_store import VectorStore
+from ..indexing.a2_embedder import Embedder
+from ..indexing.a3_vector_store import VectorStore
 
 
 class Retriever:

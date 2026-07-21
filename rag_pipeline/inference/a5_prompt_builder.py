@@ -5,7 +5,7 @@ class PromptBuilder:
 
     def __init__(self):
 
-        current_dir = os.path.dirname(os.path.abspath(__file__))
+        current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
         prompt_path = os.path.join(
             current_dir,
