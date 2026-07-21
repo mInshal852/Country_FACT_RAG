@@ -1,9 +1,12 @@
 # import os
-# from .chunk_loader import ChunkLoader
-# from .embedder import Embedder
-# from .vector_store import VectorStore
+# from ..indexing.a1_chunk_loader import ChunkLoader
+# from ..indexing.a2_embedder import Embedder
+# from ..indexing.a3_vector_store import VectorStore
 
-# PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# PROJECT_ROOT = os.path.dirname(
+#     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# )
+# print(PROJECT_ROOT)
 
 
 # project_root = PROJECT_ROOT
@@ -31,7 +34,7 @@
 # print(f"Stored {vector_store.count()} chunks in ChromaDB")
 
 
-# from .retriever import Retriever
+# from .a4_retriever import Retriever
 
 # retriever = Retriever(os.path.join(project_root, "vectordb", "chroma_db"))
 
@@ -56,14 +59,18 @@ from .a4_retriever import Retriever
 from .a5_prompt_builder import PromptBuilder
 from .a6_llm_generator import LLMGenerator
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 
 CHROMA_DB_PATH = os.path.join(PROJECT_ROOT, "vectordb", "chroma_db")
+print(CHROMA_DB_PATH)
 
 
 def main():
 
     retriever = Retriever(CHROMA_DB_PATH)
+    print("Collection count:", retriever.vector_store.collection.count())
     prompt_builder = PromptBuilder()
     llm = LLMGenerator()
 
@@ -89,7 +96,6 @@ def main():
             query=query,
             retrieved_chunks=retrieved_chunks,
         )
-
         answer = llm.generate(
             system_prompt,
             user_prompt,
