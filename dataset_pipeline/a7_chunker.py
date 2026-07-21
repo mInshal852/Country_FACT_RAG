@@ -1,8 +1,6 @@
 import os
 import json
 from .a1_countries import COUNTRIES
-
-print("Current Working Directory:", os.getcwd())
 from configg import CHUNK_OVERLAPP, CHUNK_SIZEE
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
@@ -25,7 +23,9 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 # Text Splitter
 # ==========================
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=700, chunk_overlap=150, separators=["\n\n", "\n", " ", ""]
+    chunk_size=CHUNK_SIZEE,
+    chunk_overlap=CHUNK_OVERLAPP,
+    separators=["\n\n", "\n", " ", ""],
 )
 
 

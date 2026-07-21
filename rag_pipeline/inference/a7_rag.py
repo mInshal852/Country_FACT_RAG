@@ -15,6 +15,7 @@
 
 # loader = ChunkLoader(os.path.join(project_root, "datasets", "chunks"))
 
+
 # chunks = loader.load_chunks()
 
 # print(f"Loaded {len(chunks)} chunks")
@@ -27,6 +28,7 @@
 # print("=" * 60)
 # print(embedded_chunks[0])
 
+# print(os.path.join(project_root, "vectordb", "chroma_db"))
 # vector_store = VectorStore(os.path.join(project_root, "vectordb", "chroma_db"))
 
 # vector_store.add_documents(embedded_chunks)
