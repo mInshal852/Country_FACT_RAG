@@ -32,8 +32,9 @@ class VectorStore:
         )
 
     def search(self, query_embedding, top_k=7):
+
         return self.collection.query(
-            query_embeddings=[query_embedding],
+            query_embeddings=query_embedding,
             n_results=top_k,
             include=[
                 "documents",

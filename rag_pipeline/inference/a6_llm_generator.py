@@ -8,14 +8,14 @@ load_dotenv()
 
 class LLMGenerator:
 
-    def __init__(self):
+    def __init__(self, model):
 
         self.client = OpenAI(
             api_key=os.getenv("OPENROUTER_API_KEY"),
             base_url="https://openrouter.ai/api/v1",
         )
 
-        self.model = "qwen/qwen3-14b"
+        self.model = model
 
     def generate(self, system_prompt, user_prompt):
 

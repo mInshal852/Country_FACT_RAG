@@ -4,6 +4,7 @@ import json
 from openai import OpenAI
 from dotenv import load_dotenv
 from .a1_countries import COUNTRIES, Sections
+from configg import GENERATOR_MODEL
 
 load_dotenv()
 
@@ -15,7 +16,7 @@ client = OpenAI(
 def call_qwen(prompt: str) -> str:
     print(len(prompt))
     response = client.chat.completions.create(
-        model="qwen/qwen3-14b", messages=[{"role": "user", "content": prompt}]
+        model=GENERATOR_MODEL, messages=[{"role": "user", "content": prompt}]
     )
 
     return response.choices[0].message.content

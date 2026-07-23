@@ -56,6 +56,8 @@
 # ---------------------------------------
 
 import os
+import time
+from configg import GENERATOR_MODEL
 
 from .a4_retriever import Retriever
 from .a5_prompt_builder import PromptBuilder
@@ -74,7 +76,7 @@ def main():
     retriever = Retriever(CHROMA_DB_PATH)
     print("Collection count:", retriever.vector_store.collection.count())
     prompt_builder = PromptBuilder()
-    llm = LLMGenerator()
+    llm = LLMGenerator(model=GENERATOR_MODEL)
 
     print("=" * 60)
     print("CountryFact AI")
@@ -98,10 +100,16 @@ def main():
             query=query,
             retrieved_chunks=retrieved_chunks,
         )
+        start = time.time()
+
+        # answer generation
+
         answer = llm.generate(
             system_prompt,
             user_prompt,
         )
+
+        print("Generation:", time.time() - start)
 
         print("\nAssistant:")
         print(answer)

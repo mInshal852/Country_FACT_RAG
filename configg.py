@@ -1,6 +1,8 @@
 CHUNK_SIZEE = 700
 CHUNK_OVERLAPP = 150
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+GENERATOR_MODEL = "qwen/qwen3-14b"
+DECOMPOSITION_MODEL = "qwen/qwen3-8b"
 
 import os
 
