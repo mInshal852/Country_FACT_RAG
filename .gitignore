@@ -12,3 +12,4 @@ htmlcov/
 datasets/raw/*.tmp
 datasets/processed/*.tmp
 vectordb/chroma_db/
+datasets/raw/scrapedHtml
