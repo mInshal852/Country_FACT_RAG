@@ -2,7 +2,7 @@
 import json
 import os
 from configg import CHROMA_DB_PATH
-from rag_pipeline.retriever import Retriever
+from rag_pipeline.inference.a4_retriever import Retriever
 from .retrieval_metrics import (
     precision_at_k,
     recall_at_k,
@@ -78,3 +78,32 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# # READ IT (IMP):
+# Retrieval Evaluation Dataset
+
+# In my project, I first take one chunk from the dataset and give it to the LLM. The LLM generates questions only from that chunk, not from the whole document. Since I know which chunk was used to create the question, I also know that this chunk is the correct answer. Therefore, each query in my dataset has only one relevant_chunk. This is called chunk-level retrieval evaluation because I am checking whether the retriever can find the same chunk that was used to generate the question.
+
+# In real-world or industry datasets, questions are usually broader and may require information from multiple chunks. For example, the question "Explain Germany's culture" may need information from chunks about food, music, literature, traditions, and architecture. Therefore, these datasets store multiple relevant_chunks for a single query. The goal is to check whether the retriever can find all the important chunks needed to answer the question.
+
+# Note: Since my dataset has only one relevant_chunk for each query, both Recall and Precision are easier to calculate and interpret. If the retriever finds the correct chunk, Recall = 1.0; otherwise, Recall = 0.0. This does not mean recall is always high—it only means there is only one correct chunk to find. Precision still depends on how many chunks are retrieved. For example, if I retrieve the top 5 chunks and only 1 is the correct chunk, then Precision@5 = 1/5 = 0.20. If I retrieve only the correct chunk, then Precision@1 = 1/1 = 1.0. In industry datasets, where a query can have multiple relevant chunks, both Recall and Precision provide a more detailed evaluation because the retriever is expected to find several relevant chunks instead of just one.
+
+# output:
+# pyenv) inshal@inshalR:~/Documents/RAG_Projects/CountryFact_Rag/Country_FACT_RAG$ python -m evaluation.evaluate_retriever
+# Evaluating 1032 queries...
+
+# ==================================================
+# Retrieval Evaluation
+# ==================================================
+
+# Queries Evaluated : 1032
+
+# Precision@1: 0.6502
+# Recall@1:    0.6502
+
+# Precision@3: 0.2846
+# Recall@3:    0.8537
+
+# Precision@5: 0.1806
+# Recall@5:    0.9031
