@@ -33,25 +33,50 @@ class Retriever:
             top_k=top_k,
         )
 
-        documents = results["documents"][0]
-        metadatas = results["metadatas"][0]
-        distances = results["distances"][0]
-        ids = results["ids"][0]
+        # documents = results["documents"][0]
+        # metadatas = results["metadatas"][0]
+        # distances = results["distances"][0]
+        # ids = results["ids"][0]
 
-        for doc, metadata, distance, chunk_id in zip(
-            documents,
-            metadatas,
-            distances,
-            ids,
+        # for doc, metadata, distance, chunk_id in zip(
+        #     documents,
+        #     metadatas,
+        #     distances,
+        #     ids,
+        # ):
+
+        #     if chunk_id not in all_chunks:
+
+        #         all_chunks[chunk_id] = {
+        #             "id": chunk_id,
+        #             "text": doc,
+        #             "metadata": metadata,
+        #             "distance": distance,
+        #         }
+
+        # return list(all_chunks.values())
+
+        for documents, metadatas, distances, ids in zip(
+            results["documents"],
+            results["metadatas"],
+            results["distances"],
+            results["ids"],
         ):
 
-            if chunk_id not in all_chunks:
+            for doc, metadata, distance, chunk_id in zip(
+                documents,
+                metadatas,
+                distances,
+                ids,
+            ):
 
-                all_chunks[chunk_id] = {
-                    "id": chunk_id,
-                    "text": doc,
-                    "metadata": metadata,
-                    "distance": distance,
-                }
+                if chunk_id not in all_chunks:
+
+                    all_chunks[chunk_id] = {
+                        "id": chunk_id,
+                        "text": doc,
+                        "metadata": metadata,
+                        "distance": distance,
+                    }
 
         return list(all_chunks.values())
