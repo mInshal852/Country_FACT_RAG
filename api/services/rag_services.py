@@ -70,7 +70,23 @@ class RAGService:
             )
 
     def decompose(self, question: str):
-        pass
+        try:
+            # Ask the query decomposer to split the question
+            # into one or more simpler search queries.
+            sub_queries = self.rag.retriever.query_decomposer.decompose(question)
+
+            return {
+                "question": question,
+                "sub_queries": sub_queries,
+            }
+
+        except Exception:
+            logger.exception("Failed to decompose query")
+
+        raise HTTPException(
+            status_code=500,
+            detail="An unexpected error occurred while decomposing the query.",
+        )
 
 
 # Create one shared service object for the entire application.

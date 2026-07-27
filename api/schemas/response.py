@@ -10,3 +10,8 @@ class AnswerResponse(BaseModel):
 class RetrieveResponse(BaseModel):
     question: str
     chunks: list[Any]
+
+
+class DecomposeResponse(BaseModel):
+    question: str
+    sub_queries: list[str]
