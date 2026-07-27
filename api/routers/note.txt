@@ -1,0 +1,8 @@
+# We use POST instead of GET in retrieve, ask, decompose because:
+# 1. POST accepts data in the request body (JSON), while GET typically uses
+#    path parameters and query parameters instead of a request body.
+# 2. The request may grow in the future (e.g., top_k, filters, rerank options).
+# 3. RAG performs processing (decomposition, retrieval, generation), not just
+#    simple data fetching.
+# 4. POST is better suited for large or complex request data than passing
+#    everything through query parameters.
