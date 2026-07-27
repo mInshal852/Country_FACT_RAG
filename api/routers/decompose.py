@@ -4,6 +4,7 @@ from api.schemas.request import QuestionRequest
 from api.schemas.response import DecomposeResponse
 from api.services.rag_services import rag_service
 import logging
+import time
 
 logger = logging.getLogger(__name__)
 router = APIRouter(
@@ -19,9 +20,13 @@ router = APIRouter(
     description="Splits a complex question into one or more simpler search queries.",
 )
 def decompose(request: QuestionRequest):
+    start_time = time.perf_counter()
     logger.info("Decomposing user query")
 
     result = rag_service.decompose(request.question)
     logger.info("Query decomposed successfully")
+    end_time = time.perf_counter()
+    elapsed = end_time - start_time
+    logger.info(f"Total time in Decomposition: {elapsed}")
 
     return result
