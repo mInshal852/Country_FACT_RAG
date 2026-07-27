@@ -3,7 +3,9 @@ from fastapi import APIRouter
 from api.schemas.request import QuestionRequest
 from api.schemas.response import RetrieveResponse
 from api.services.rag_services import rag_service
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter(
     prefix="/retrieve",
     tags=["Retrieve"],
@@ -17,5 +19,9 @@ router = APIRouter(
     description="Returns the most relevant document chunks without generating an answer.",
 )
 def retrieve(request: QuestionRequest):
+    logger.info("Retrieving relevant chunks")
 
-    return rag_service.retrieve(request.question)
+    answer = rag_service.retrieve(request.question)
+    logger.info("Retrieved relevant chunks successfully")
+
+    return answer

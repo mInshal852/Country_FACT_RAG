@@ -1,0 +1,92 @@
+Here's a note you can directly save.
+
+---
+
+# What is the `core` folder?
+
+**Simple definition:**
+
+> The `core` folder contains code that is **used by the entire application**, not by just one feature.
+
+---
+
+## Example
+
+Imagine you're building a school.
+
+There are many classrooms:
+
+* Math class
+* English class
+* Computer class
+
+All of them need **electricity**.
+
+You **don't** install a separate power station inside every classroom.
+
+Instead, you build **one main power room**, and every classroom gets electricity from there.
+
+In a FastAPI project:
+
+```text
+routers/
+├── ask.py
+├── retrieve.py
+└── decompose.py
+```
+
+These are like the classrooms.
+
+Now suppose all of them need logging.
+
+Instead of writing logging setup in every router:
+
+```python
+ask.py
+retrieve.py
+decompose.py
+```
+
+you configure logging **once** in:
+
+```text
+core/
+└── logging_config.py
+```
+
+Then every router uses that same logging configuration.
+
+---
+
+## Another simple example
+
+Suppose your application has:
+
+* `/ask`
+* `/retrieve`
+* `/decompose`
+
+All three need:
+
+* Logging
+* Security
+* Settings
+
+Instead of repeating these in every file, you keep them in one place:
+
+```text
+core/
+├── logging_config.py
+├── security.py
+└── settings.py
+```
+
+Now the whole application shares them.
+
+---
+
+## One-line note
+
+> **`core` is a folder that stores common code and configuration shared by the entire application, so we don't repeat the same setup in multiple files.**
+
+That's the main idea behind the `core` folder.
