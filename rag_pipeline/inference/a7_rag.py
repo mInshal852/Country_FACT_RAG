@@ -54,9 +54,9 @@
 
 
 # ---------------------------------------
-
 import os
 import time
+
 from configg import GENERATOR_MODEL
 
 from .a4_retriever import Retriever
@@ -68,15 +68,45 @@ PROJECT_ROOT = os.path.dirname(
 )
 
 CHROMA_DB_PATH = os.path.join(PROJECT_ROOT, "vectordb", "chroma_db")
-print(CHROMA_DB_PATH)
+
+
+class RAG:
+    def __init__(self):
+        self.retriever = Retriever(CHROMA_DB_PATH)
+        self.prompt_builder = PromptBuilder()
+        self.llm = LLMGenerator(model=GENERATOR_MODEL)
+
+        print("Collection count:", self.retriever.vector_store.collection.count())
+
+    def ask(self, query: str, top_k: int = 5) -> str:
+        """
+        Generate an answer for a user query.
+        """
+
+        retrieved_chunks = self.retriever.retrieve(
+            query=query,
+            top_k=top_k,
+        )
+
+        system_prompt, user_prompt = self.prompt_builder.build_prompt(
+            query=query,
+            retrieved_chunks=retrieved_chunks,
+        )
+
+        start = time.time()
+
+        answer = self.llm.generate(
+            system_prompt,
+            user_prompt,
+        )
+
+        print(f"Generation Time: {time.time() - start:.2f} sec")
+
+        return answer
 
 
 def main():
-
-    retriever = Retriever(CHROMA_DB_PATH)
-    print("Collection count:", retriever.vector_store.collection.count())
-    prompt_builder = PromptBuilder()
-    llm = LLMGenerator(model=GENERATOR_MODEL)
+    rag = RAG()
 
     print("=" * 60)
     print("CountryFact AI")
@@ -84,32 +114,13 @@ def main():
     print("=" * 60)
 
     while True:
-
         query = input("\nYou: ").strip()
 
-        if query in {"exit", "quit", "bye"}:
+        if query.lower() in {"exit", "quit", "bye"}:
             print("\nGoodbye! Thanks for using CountryFact AI.")
             break
 
-        retrieved_chunks = retriever.retrieve(
-            query=query,
-            top_k=5,
-        )
-
-        system_prompt, user_prompt = prompt_builder.build_prompt(
-            query=query,
-            retrieved_chunks=retrieved_chunks,
-        )
-        start = time.time()
-
-        # answer generation
-
-        answer = llm.generate(
-            system_prompt,
-            user_prompt,
-        )
-
-        print("Generation:", time.time() - start)
+        answer = rag.ask(query)
 
         print("\nAssistant:")
         print(answer)
