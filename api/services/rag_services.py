@@ -19,74 +19,37 @@ class RAGService:
         self.rag = RAG()
 
     def ask(self, question: str):
-        try:
-            # Call the actual RAG pipeline.
-            answer = self.rag.ask(question)
 
-            return {
-                "question": question,
-                "answer": answer,
-            }
+        # Call the actual RAG pipeline.
+        answer = self.rag.ask(question)
 
-        except Exception as e:
-            # logger.exception(...) automatically logs:
-            # - the error message
-            # - the complete traceback (where the error happened)
-            #
-            # This is very useful for debugging because if something
-            # fails in production, you can inspect the logs to see
-            # exactly what went wrong.
-            logger.exception("Failed to generate answer")
-
-            # HTTPException tells FastAPI to return an HTTP error response.
-            #
-            # Instead of crashing the server or returning a generic
-            # "Internal Server Error", the client receives a clean,
-            # meaningful JSON response.
-            raise HTTPException(
-                status_code=500,
-                detail="An unexpected error occurred while generating the answer.",
-            )
+        return {
+            "question": question,
+            "answer": answer,
+        }
 
     def retrieve(self, question: str):
-        try:
-            # Call the retriever directly without generating an answer.
-            chunks = self.rag.retriever.retrieve(
-                query=question,
-                top_k=5,
-            )
 
-            return {
-                "question": question,
-                "chunks": chunks,
-            }
+        # Call the retriever directly without generating an answer.
+        chunks = self.rag.retriever.retrieve(
+            query=question,
+            top_k=5,
+        )
 
-        except Exception:
-            logger.exception("Failed to retrieve chunks")
-
-            raise HTTPException(
-                status_code=500,
-                detail="An unexpected error occurred while retrieving chunks.",
-            )
+        return {
+            "question": question,
+            "chunks": chunks,
+        }
 
     def decompose(self, question: str):
-        try:
-            # Ask the query decomposer to split the question
-            # into one or more simpler search queries.
-            sub_queries = self.rag.retriever.query_decomposer.decompose(question)
+        # Ask the query decomposer to split the question
+        # into one or more simpler search queries.
+        sub_queries = self.rag.retriever.query_decomposer.decompose(question)
 
-            return {
-                "question": question,
-                "sub_queries": sub_queries,
-            }
-
-        except Exception:
-            logger.exception("Failed to decompose query")
-
-        raise HTTPException(
-            status_code=500,
-            detail="An unexpected error occurred while decomposing the query.",
-        )
+        return {
+            "question": question,
+            "sub_queries": sub_queries,
+        }
 
 
 # Create one shared service object for the entire application.

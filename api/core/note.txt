@@ -90,3 +90,271 @@ Now the whole application shares them.
 > **`core` is a folder that stores common code and configuration shared by the entire application, so we don't repeat the same setup in multiple files.**
 
 That's the main idea behind the `core` folder.
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+This is actually one of the best features to learn after logging and response timing.
+
+Let's understand it using **your own project**.
+
+---
+
+# Your current code
+
+In `RAGService`, every method looks similar:
+
+```python
+def ask(self, question: str):
+    try:
+        ...
+    except Exception:
+        logger.exception("Failed to generate answer")
+
+        raise HTTPException(
+            status_code=500,
+            detail="An unexpected error occurred while generating the answer.",
+        )
+```
+
+Your `retrieve()` also has:
+
+```python
+try:
+    ...
+except Exception:
+    ...
+```
+
+Your `decompose()` also has:
+
+```python
+try:
+    ...
+except Exception:
+    ...
+```
+
+Notice something?
+
+The same pattern is repeated **three times**.
+
+---
+
+# What problem does this cause?
+
+Imagine your project grows.
+
+Today:
+
+```text
+ask()
+retrieve()
+decompose()
+```
+
+Tomorrow you add:
+
+```text
+summarize()
+translate()
+upload_pdf()
+delete_document()
+chat()
+```
+
+Now every function needs:
+
+```python
+try:
+    ...
+except Exception:
+    logger.exception(...)
+    raise HTTPException(...)
+```
+
+Again...
+
+Again...
+
+Again...
+
+This is called **code duplication**.
+
+---
+
+# Real-life example
+
+Imagine a school.
+
+Every classroom has a fire extinguisher.
+
+Whenever there's a fire, the teacher must:
+
+* Call the fire department
+* Ring the alarm
+* Evacuate students
+
+Every teacher memorizes the same procedure.
+
+That's a lot of repeated work.
+
+Instead...
+
+The school hires **one security office**.
+
+Now whenever a classroom has a problem:
+
+```
+Teacher
+    │
+    ▼
+Security Office
+    │
+Handles everything
+```
+
+Teachers don't have to repeat the same emergency procedure.
+
+---
+
+# Global Exception Handler works the same way
+
+Instead of every service handling errors:
+
+```
+ask()
+    try...
+    except...
+
+retrieve()
+    try...
+    except...
+
+decompose()
+    try...
+    except...
+```
+
+All unexpected errors go to **one place**.
+
+```
+ask()
+      │
+retrieve()
+      │
+decompose()
+      │
+      ▼
+Global Exception Handler
+      │
+      ▼
+Return proper error response
+```
+
+---
+
+# What does it solve?
+
+It solves:
+
+* ✅ Repeated `try/except`
+* ✅ Repeated `HTTPException`
+* ✅ Repeated logging
+* ✅ Keeps business logic clean
+
+Now your service focuses only on its job:
+
+```
+Generate answer
+
+Retrieve chunks
+
+Decompose query
+```
+
+instead of worrying about formatting every error.
+
+---
+
+# Simple definition
+
+> A **Global Exception Handler** is one central place that catches unexpected errors from anywhere in the application and returns a consistent error response.
+
+---
+
+# Think of it like customer support
+
+Imagine a company.
+
+Customers don't call every department.
+
+Instead:
+
+```
+Sales
+IT
+Finance
+HR
+     │
+     ▼
+Customer Support
+```
+
+Customer Support handles complaints and sends them to the correct department.
+
+The Global Exception Handler is like **Customer Support** for your application.
+
+Whenever an error happens:
+
+```
+Router
+   │
+Service
+   │
+Error ❌
+   │
+   ▼
+Global Exception Handler
+   │
+Logs it
+Creates response
+Returns HTTP 500
+```
+
+---
+
+# Where should you write it?
+
+Since this is **shared by the whole application**, it belongs with your application's shared infrastructure.
+
+For your project, I'd create:
+
+```text
+api/
+├── logging_config.py
+├── exception_handler.py   ← Global Exception Handler
+├── main.py
+├── routers/
+├── services/
+└── schemas/
+```
+
+If your project later grows and you introduce a `core/` folder, it could become:
+
+```text
+api/
+├── core/
+│   ├── logging_config.py
+│   └── exception_handler.py
+```
+
+But **for your current project**, placing `exception_handler.py` directly under `api/` is simple and appropriate.
+
+---
+
+## Note for your notebook
+
+> **Global Exception Handler:** A single place that catches unexpected errors from anywhere in the application, logs them, and returns a consistent error response. It removes repeated `try/except` blocks from multiple files and keeps the code cleaner.
