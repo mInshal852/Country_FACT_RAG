@@ -3,6 +3,9 @@ from api.routers.health import router as health_router
 from api.routers.ask import router as ask_router
 from api.routers.retrieve import router as retrieve_router
 from api.routers.decompose import router as decompose_router
+from api.core.logging_config import setup_logging
+
+setup_logging()
 
 app = FastAPI(
     title="Country FACT RAG API",

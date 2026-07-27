@@ -10,7 +10,12 @@ router = APIRouter(
 )
 
 
-@router.post("/", response_model=RetrieveResponse)
+@router.post(
+    "/",
+    response_model=RetrieveResponse,
+    summary="Retrieve relevant chunks",
+    description="Returns the most relevant document chunks without generating an answer.",
+)
 def retrieve(request: QuestionRequest):
 
     return rag_service.retrieve(request.question)
