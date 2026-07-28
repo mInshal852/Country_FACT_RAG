@@ -9,6 +9,8 @@
 
 A production-style **Retrieval-Augmented Generation (RAG)** application that answers country-related questions using semantic search over a curated knowledge base built from **Britannica** articles.
 
+The knowledge base was automatically created using a custom data pipeline that scrapes Britannica articles through the **Zyte API**, processes the content, generates embeddings, and indexes them into ChromaDB for semantic retrieval.
+
 The project demonstrates an end-to-end RAG pipeline, including dataset creation, document preprocessing, vector indexing, semantic retrieval, query decomposition, prompt construction, LLM-based answer generation, a **FastAPI backend**, a **Streamlit frontend**, and **Dockerized deployment**.
 
 ---
@@ -16,6 +18,7 @@ The project demonstrates an end-to-end RAG pipeline, including dataset creation,
 # ✨ Features
 
 - 🌍 Country Question Answering
+- 🌐 Automated Dataset Creation using Zyte API
 - 🔍 Semantic Retrieval using ChromaDB
 - 🧠 Sentence Transformer Embeddings (`all-MiniLM-L6-v2`)
 - ✍️ Query Decomposition for Multi-Country Queries
@@ -35,39 +38,8 @@ The project demonstrates an end-to-end RAG pipeline, including dataset creation,
 
 # 🏗️ System Architecture
 
-```text
-                    User
-                      │
-                      ▼
-          Streamlit Frontend (UI)
-                      │
-             HTTP Request (/ask)
-                      │
-                      ▼
-              FastAPI Backend
-                      │
-                      ▼
-          Query Decomposition LLM
-                      │
-                      ▼
-     Sentence Transformer Embeddings
-                      │
-                      ▼
-              ChromaDB Vector DB
-                      │
-           Retrieve Top-K Chunks
-                      │
-          Duplicate Chunk Removal
-                      │
-                      ▼
-             Prompt Construction
-                      │
-                      ▼
-            OpenRouter LLM (Qwen)
-                      │
-                      ▼
-              Generated Response
-```
+
+![Architecture](images/high_level_DIagram.png)
 
 ---
 
@@ -109,6 +81,33 @@ datasets/
 ├── chunks/       # Chunked documents
 └── datalinks/    # Source metadata
 ```
+
+---
+
+# 🕸️ Dataset Creation Pipeline
+
+The country knowledge base is automatically generated using a custom data pipeline.
+
+### Data Source
+
+- Britannica Encyclopedia
+
+### Web Scraping
+
+The project uses the **Zyte API** to retrieve Britannica pages while handling anti-bot protections that prevent traditional web scraping.
+
+### Processing Steps
+
+1. Scrape Britannica articles using the Zyte API.
+2. Parse the HTML content.
+3. Extract the relevant article sections.
+4. Convert the extracted content into structured JSON.
+5. Generate plain text documents.
+6. Split documents into overlapping chunks.
+7. Generate embeddings using Sentence Transformers.
+8. Store embeddings and metadata inside ChromaDB.
+
+This pipeline allows the knowledge base to be regenerated whenever new countries or updated content need to be indexed.
 
 ---
 
@@ -158,6 +157,8 @@ datasets/
 | Language | Python |
 | Backend | FastAPI |
 | Frontend | Streamlit |
+| Web Scraping | Zyte API |
+| Data Source | Britannica Encyclopedia |
 | Vector Database | ChromaDB |
 | Embedding Model | all-MiniLM-L6-v2 |
 | LLM | Qwen (OpenRouter) |
