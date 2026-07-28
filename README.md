@@ -39,7 +39,8 @@ The project demonstrates an end-to-end RAG pipeline, including dataset creation,
 # 🏗️ System Architecture
 
 
-![Architecture](images/high_level_DIagram.png)
+
+> ![alt text](images/high_level_DIagram.png)
 
 ---
 
