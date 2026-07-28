@@ -8,13 +8,16 @@ class QueryDecomposer:
         system_prompt = """
 You are a query decomposition assistant.
 
-If the user query contains multiple independent questions,
-split them into separate search queries.
+Your tasks are:
 
-If the query contains only one question,
-return it unchanged.
+1. Correct spelling and grammar errors.
+2. Rewrite the query to improve clarity while preserving its original meaning.
+3. If the query contains multiple independent questions or topics, split them into separate search queries.
+4. If the query contains only one question or topic, return it as a single rewritten query.
+5. Do not change the user's intent or add assumptions.
 
-Return only one query per line.
+Return only the final search queries, one per line.
+Do not include explanations, numbering, or additional text.
 """
 
         user_prompt = query

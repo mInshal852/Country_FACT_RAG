@@ -57,7 +57,21 @@
 import os
 import time
 
-from configg import GENERATOR_MODEL
+from backend.configg import GENERATOR_MODEL
+
+from .a4_retriever import Retriever
+from .a5_prompt_builder import PromptBuilder
+from .a6_llm_generator import LLMGenerator
+
+PROJECT_ROOT = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
+
+CHROMA_DB_PATH = os.path.join(PROJECT_ROOT, "vectordb", "chroma_db")
+import os
+import time
+
+from backend.configg import GENERATOR_MODEL
 
 from .a4_retriever import Retriever
 from .a5_prompt_builder import PromptBuilder
@@ -69,6 +83,65 @@ PROJECT_ROOT = os.path.dirname(
 
 CHROMA_DB_PATH = os.path.join(PROJECT_ROOT, "vectordb", "chroma_db")
 
+
+class RAG:
+    def __init__(self):
+        self.retriever = Retriever(CHROMA_DB_PATH)
+        self.prompt_builder = PromptBuilder()
+        self.llm = LLMGenerator(model=GENERATOR_MODEL)
+
+        print("Collection count:", self.retriever.vector_store.collection.count())
+
+    def ask(self, query: str, top_k: int = 5) -> str:
+        """
+        Generate an answer for a user query.
+        """
+
+        retrieved_chunks = self.retriever.retrieve(
+            query=query,
+            top_k=top_k,
+        )
+
+        system_prompt, user_prompt = self.prompt_builder.build_prompt(
+            query=query,
+            retrieved_chunks=retrieved_chunks,
+        )
+
+        start = time.time()
+
+        answer = self.llm.generate(
+            system_prompt,
+            user_prompt,
+        )
+
+        print(f"Generation Time: {time.time() - start:.2f} sec")
+
+        return answer
+
+
+def main():
+    rag = RAG()
+
+    print("=" * 60)
+    print("CountryFact AI")
+    print("Type 'exit' to quit.")
+    print("=" * 60)
+
+    while True:
+        query = input("\nYou: ").strip()
+
+        if query.lower() in {"exit", "quit", "bye"}:
+            print("\nGoodbye! Thanks for using CountryFact AI.")
+            break
+
+        answer = rag.ask(query)
+
+        print("\nAssistant:")
+        print(answer)
+
+
+if __name__ == "__main__":
+    main()
 
 class RAG:
     def __init__(self):

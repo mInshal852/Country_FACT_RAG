@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from api.schemas.request import QuestionRequest
-from api.schemas.response import RetrieveResponse
-from api.services.rag_services import rag_service
+from backend.api.schemas.request import QuestionRequest
+from backend.api.schemas.response import RetrieveResponse
+from backend.api.services.rag_services import rag_service
 import logging
 import time
 
@@ -24,6 +24,7 @@ def retrieve(request: QuestionRequest):
     logger.info("Retrieving relevant chunks")
 
     answer = rag_service.retrieve(request.question)
+
     logger.info("Retrieved relevant chunks successfully")
     end_time = time.perf_counter()
     elapsed = end_time - start_time

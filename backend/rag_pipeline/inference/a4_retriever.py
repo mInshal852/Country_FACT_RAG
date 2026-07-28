@@ -3,7 +3,7 @@ from ..indexing.a3_vector_store import VectorStore
 from .a4_1_QueryDecompose import QueryDecomposer
 from .a6_llm_generator import LLMGenerator
 import time
-from configg import DECOMPOSITION_MODEL
+from backend.configg import DECOMPOSITION_MODEL
 
 
 class Retriever:
@@ -90,3 +90,41 @@ class Retriever:
                     }
         print("Retrieval:", time.time() - start)
         return list(all_chunks.values())
+
+
+### note: How retiever works:
+
+# ==========================================================
+# Multi-Query Retrieval
+#
+# If query decomposition produces multiple sub-queries:
+#
+# User:
+#   What is Pakistan?
+#   What is Saudi Arabia?
+#   What is Germany?
+#
+# After decomposition:
+#   1. What is Pakistan?
+#   2. What is Saudi Arabia?
+#   3. What is Germany?
+#
+# Each sub-query retrieves its own top_k chunks.
+#
+# Example (top_k = 5):
+#   Pakistan      -> 5 chunks
+#   Saudi Arabia  -> 5 chunks
+#   Germany       -> 5 chunks
+#
+# Total retrieved:
+#   5 + 5 + 5 = 15 candidate chunks
+#
+# Duplicate chunks are removed using a dictionary keyed by
+# chunk_id, leaving only unique chunks.
+#
+# The final unique chunks are then passed to the LLM for
+# answer generation.
+#
+# Note:
+# Here, top_k is applied PER sub-query, not globally.
+# ==========================================================

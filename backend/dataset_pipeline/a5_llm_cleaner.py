@@ -4,7 +4,7 @@ import json
 from openai import OpenAI
 from dotenv import load_dotenv
 from .a1_countries import COUNTRIES, Sections
-from configg import GENERATOR_MODEL
+from backend.configg import GENERATOR_MODEL
 
 load_dotenv()
 

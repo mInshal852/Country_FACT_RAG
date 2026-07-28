@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from api.routers.health import router as health_router
-from api.routers.ask import router as ask_router
-from api.routers.retrieve import router as retrieve_router
-from api.routers.decompose import router as decompose_router
-from api.core.logging_config import setup_logging
-from api.core.exception_handler import register_exception_handlers
+from backend.api.routers.health import router as health_router
+from backend.api.routers.ask import router as ask_router
+from backend.api.routers.retrieve import router as retrieve_router
+from backend.api.routers.decompose import router as decompose_router
+from backend.api.core.logging_config import setup_logging
+from backend.api.core.exception_handler import register_exception_handlers
 
 setup_logging()
 
