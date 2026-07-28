@@ -338,19 +338,19 @@ docker compose down
 
 ## Home Page
 
-> Add screenshot here
+> ![alt text](Images/home.png)
 
 ---
 
 ## Chat Interface
 
-> Add screenshot here
+> ![alt text](Images/chat.png)
 
 ---
 
 ## Swagger API
 
-> Add screenshot here
+> ![alt text](Images/swagger.png)
 
 ---
 
