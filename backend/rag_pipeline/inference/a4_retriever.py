@@ -3,7 +3,7 @@ from ..indexing.a3_vector_store import VectorStore
 from .a4_1_QueryDecompose import QueryDecomposer
 from .a6_llm_generator import LLMGenerator
 import time
-from backend.configg import DECOMPOSITION_MODEL
+from configg import DECOMPOSITION_MODEL
 
 
 class Retriever:

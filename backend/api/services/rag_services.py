@@ -1,7 +1,7 @@
 import logging
 from fastapi import HTTPException
 
-from backend.rag_pipeline.inference.a7_rag import RAG
+from rag_pipeline.inference.a7_rag import RAG
 
 # Create a logger for this file.
 # A logger is used to save errors and important information.

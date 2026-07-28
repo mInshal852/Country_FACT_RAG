@@ -4,7 +4,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-from backend.dataset_pipeline.a1_countries import COUNTRIES, Sections
+from dataset_pipeline.a1_countries import COUNTRIES, Sections
 
 # Load .env from the project root
 load_dotenv()

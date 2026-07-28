@@ -1,0 +1,51 @@
+# --------------------------------------------------
+# Base Image
+# --------------------------------------------------
+# Start from the official Python 3.12 slim image.
+# It contains:
+# - Debian Slim Linux
+# - Python 3.12
+# - pip
+# - Only the essential Linux packages (smaller image size)
+FROM python:3.12-slim
+
+# --------------------------------------------------
+# Working Directory
+# --------------------------------------------------
+# All subsequent commands will run inside /app.
+WORKDIR /app
+
+# --------------------------------------------------
+# Install Dependencies
+# --------------------------------------------------
+# Copy only requirements.txt first so Docker can cache
+# installed dependencies. If requirements.txt doesn't
+# change, Docker won't reinstall packages on every build.
+COPY requirements.txt .
+
+# --no-cache-dir prevents pip from storing downloaded packages
+# in its cache (~/.cache/pip/). Since the cache is not needed
+# after installation inside a Docker image, this reduces the
+# final image size.
+RUN pip install --no-cache-dir -r requirements.txt
+
+# --------------------------------------------------
+# Copy Project Files
+# --------------------------------------------------
+# Copy the remaining backend source code into /app.
+COPY . .
+
+# --------------------------------------------------
+# Expose Application Port
+# --------------------------------------------------
+# FastAPI listens on port 8000.
+# Inform Docker that this application listens on port 8000.
+# This is mainly documentation for the image and helps when
+# mapping the container's port to the host (e.g., -p 8000:8000).
+EXPOSE 8000
+
+
+# --------------------------------------------------
+# Start FastAPI
+# --------------------------------------------------
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]

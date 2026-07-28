@@ -1,0 +1,59 @@
+# Docker Compose file format version.
+# 3.9 is a commonly used version and works with modern Docker Compose.
+version: "3.9"
+
+# All containers (services) that make up the application are defined here.
+services:
+  # ----------------------------
+  # Backend Service
+  # ----------------------------
+  backend:
+    # Build a Docker image instead of downloading one.
+    build:
+      # Docker will look inside the ./backend folder
+      # for the Dockerfile.
+      context: ./backend
+    # Give the running container a friendly name.
+    # Otherwise Docker generates a random name.
+    container_name: country-fact-rag-backend
+
+    # Publish container port 8000 to host port 8000.
+    #
+    # Format:
+    # HOST_PORT : CONTAINER_PORT
+    #
+    # localhost:8000  ---> container:8000
+    ports:
+      - "8000:8000"
+
+    # (Optional later)
+    # Here we can add environment variables like:
+    #
+    # environment:
+    #   OPENROUTER_API_KEY: xxxx
+
+  # ----------------------------
+  # Frontend Service
+  # ----------------------------
+  frontend:
+    # Build the frontend image from ./frontend
+    build:
+      # Docker will use ./frontend/Dockerfile
+      context: ./frontend
+
+    # Give the frontend container a readable name.
+    container_name: country-fact-rag-frontend
+
+    # Publish Streamlit's port.
+    #
+    # localhost:8501 ---> container:8501
+    ports:
+      - "8501:8501"
+
+    # Start the backend before starting the frontend.
+    #
+    # NOTE:
+    # This only controls startup order.
+    # It DOES NOT wait until the backend is fully ready.
+    depends_on:
+      - backend

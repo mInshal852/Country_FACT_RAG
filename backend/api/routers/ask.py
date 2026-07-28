@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from backend.api.schemas.request import QuestionRequest
-from backend.api.schemas.response import AnswerResponse
-from backend.api.services.rag_services import rag_service
+from api.schemas.request import QuestionRequest
+from api.schemas.response import AnswerResponse
+from api.services.rag_services import rag_service
 import logging
 import time
 

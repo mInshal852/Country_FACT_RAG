@@ -10,7 +10,7 @@ def setup_logging():
         level=logging.INFO,
         format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
         handlers=[
-            logging.FileHandler("backend/logs/app.log"),
+            logging.FileHandler("logs/app.log"),
             logging.StreamHandler(),  # Also print logs to the terminal.
         ],
     )

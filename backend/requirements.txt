@@ -1,0 +1,11 @@
+beautifulsoup4
+chromadb
+fastapi
+langchain_text_splitters
+numpy
+openai
+python-dotenv
+pytest
+requests
+sentence-transformers
+uvicorn

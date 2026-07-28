@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
-from ..backend.dataset_pipeline.a1_countries import COUNTRIES
+from dataset_pipeline.a1_countries import COUNTRIES
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_HTML_DIR = os.path.join(PROJECT_ROOT, "datasets", "raw", "scrapedHtml")

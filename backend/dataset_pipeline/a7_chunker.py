@@ -1,7 +1,7 @@
 import os
 import json
 from .a1_countries import COUNTRIES
-from backend.configg import CHUNK_OVERLAPP, CHUNK_SIZEE
+from configg import CHUNK_OVERLAPP, CHUNK_SIZEE
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # ==========================

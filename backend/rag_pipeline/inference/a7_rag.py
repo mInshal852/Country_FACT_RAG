@@ -57,7 +57,7 @@
 import os
 import time
 
-from backend.configg import GENERATOR_MODEL
+from configg import GENERATOR_MODEL
 
 from .a4_retriever import Retriever
 from .a5_prompt_builder import PromptBuilder
@@ -71,7 +71,7 @@ CHROMA_DB_PATH = os.path.join(PROJECT_ROOT, "vectordb", "chroma_db")
 import os
 import time
 
-from backend.configg import GENERATOR_MODEL
+from configg import GENERATOR_MODEL
 
 from .a4_retriever import Retriever
 from .a5_prompt_builder import PromptBuilder
@@ -142,6 +142,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 class RAG:
     def __init__(self):

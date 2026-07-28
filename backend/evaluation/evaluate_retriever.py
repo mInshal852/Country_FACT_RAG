@@ -1,8 +1,8 @@
 # Runs evaluation
 import json
 import os
-from backend.configg import CHROMA_DB_PATH
-from backend.rag_pipeline.inference.a4_retriever import Retriever
+from configg import CHROMA_DB_PATH
+from rag_pipeline.inference.a4_retriever import Retriever
 from .retrieval_metrics import (
     precision_at_k,
     recall_at_k,
